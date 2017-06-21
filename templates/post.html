@@ -1,0 +1,50 @@
+
+<div class="post">
+  <div class="post-heading">
+    <div class="post-title">
+      {{p.title}}
+    </div>
+
+    <div class="post-content">
+      {{p._render_text | safe}}
+    </div>
+  </div>
+
+  <div class="post-date">
+   {{p.created.strftime("%b %d, %Y")}}
+ </div>
+    <br>
+     <input type="button" value="Like" class="btn" onclick="window.location.href='/like/{{p.key().id()}}'"/>
+
+
+      <input type="button" value="Edit" class="btn" onclick="window.location.href='/edit/{{p.key().id()}}'" />
+
+      <input type="button" value="Delete" class="btn" onclick="window.location.href='/delete/{{p.key().id()}}'" />
+	 
+
+        <div class="sub-work col-md-12">
+            <form method="post" role="form" class="comment-form">
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <input type="text" class="form-control" id="comment" name="comment" value="">
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+
+        <div class="sub-work col-md-12">
+            {% for c in comments %}
+            <blockquote>
+                <a class="comment-delete btn btn-danger pull-right" href="/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>
+                <a class="comment-edit btn btn-primary pull-right" href="/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
+                <p>{{ c.comment }}</p>
+                <footer>{{ c.getUserName() }}</footer>
+            </blockquote>
+            {% endfor %}
+        </div>
+	  
+	  
+	  
+      <a style="color:grey;position:fixed;top:0;left:0" href="/">Home</a>
+
+</div>
